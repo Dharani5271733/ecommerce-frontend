@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Cart</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .product { margin: 20px; padding: 10px; border: 1px solid #ddd; display: inline-block; }
+        button { padding: 8px 15px; cursor: pointer; background-color: #28a745; color: white; border: none; }
+    </style>
+</head>
+<body>
+
+    <h1>E-commerce Store</h1>
+    <div class="product">
+        <h3>Product 1</h3>
+        <p>Price: $10</p>
+        <button onclick="addToCart('user123', 'item101', 'Product 1', 10, 1)">Add to Cart</button>
+    </div>
+
+    <script>
+        async function addToCart(userId, itemId, itemName, price, quantity) {
+            const response = await fetch("https://sb4n1qbii2.execute-api.eu-north-1.amazonaws.com/prod", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userId, itemId, itemName, price, quantity }),
+            });
+
+            const data = await response.json();
+            alert(data.message || "Error adding to cart!");
+        }
+    </script>
+
+</body>
+</html>
